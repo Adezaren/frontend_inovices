@@ -31,6 +31,7 @@ const PersonDetail = () => {
     const [person, setPerson] = useState({});
 
     useEffect(() => {
+        //pokus
         apiGet("/api/persons/" + id).then((data) => setPerson(data));
     }, [id]);
     const country = Country.CZECHIA === person.country ? "Česká republika" : "Slovensko";
