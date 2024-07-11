@@ -1,43 +1,29 @@
-/*  _____ _______         _                      _
- * |_   _|__   __|       | |                    | |
- *   | |    | |_ __   ___| |___      _____  _ __| | __  ___ ____
- *   | |    | | '_ \ / _ \ __\ \ /\ / / _ \| '__| |/ / / __|_  /
- *  _| |_   | | | | |  __/ |_ \ V  V / (_) | |  |   < | (__ / /
- * |_____|  |_|_| |_|\___|\__| \_/\_/ \___/|_|  |_|\_(_)___/___|
- *                                _
- *              ___ ___ ___ _____|_|_ _ _____
- *             | . |  _| -_|     | | | |     |  LICENCE
- *             |  _|_| |___|_|_|_|_|___|_|_|_|
- *             |_|
- *
- *   PROGRAMOVÁNÍ  <>  DESIGN  <>  PRÁCE/PODNIKÁNÍ  <>  HW A SW
- *
- * Tento zdrojový kód je součástí výukových seriálů na
- * IT sociální síti WWW.ITNETWORK.CZ
- *
- * Kód spadá pod licenci prémiového obsahu a vznikl díky podpoře
- * našich členů. Je určen pouze pro osobní užití a nesmí být šířen.
- * Více informací na http://www.itnetwork.cz/licence
- */
+
 
 
 const API_URL = "http://localhost:8080";
 
-const fetchData = (url, requestOptions) => {
+export class HttpRequestError extends Error {
+    constructor(response) {
+        super(`Network response was not ok: ${response.status} ${response.statusText}`);
+        this.response = response;
+    }
+}
+
+const fetchData = async (url, requestOptions) => {
     const apiUrl = `${API_URL}${url}`;
 
-    return fetch(apiUrl, requestOptions)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
-            }
+    const allRequestOptions = {credentials: "include", ...requestOptions};
 
-            if (requestOptions.method !== 'DELETE')
-                return response.json();
-        })
-        .catch((error) => {
-            throw error;
-        });
+    try {
+        const response = await fetch(apiUrl, allRequestOptions);
+        if (!response.ok) {
+            throw new HttpRequestError(response);
+        }
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
 };
 
 export const apiGet = (url, params) => {
@@ -56,7 +42,7 @@ export const apiGet = (url, params) => {
 export const apiPost = (url, data) => {
     const requestOptions = {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
     };
 
@@ -66,7 +52,7 @@ export const apiPost = (url, data) => {
 export const apiPut = (url, data) => {
     const requestOptions = {
         method: "PUT",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
     };
 
@@ -79,4 +65,8 @@ export const apiDelete = (url) => {
     };
 
     return fetchData(url, requestOptions);
+};
+
+export function calculate (price,vat){
+    return price + ((price/100) * vat)
 };

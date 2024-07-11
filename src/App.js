@@ -1,25 +1,3 @@
-/*  _____ _______         _                      _
- * |_   _|__   __|       | |                    | |
- *   | |    | |_ __   ___| |___      _____  _ __| | __  ___ ____
- *   | |    | | '_ \ / _ \ __\ \ /\ / / _ \| '__| |/ / / __|_  /
- *  _| |_   | | | | |  __/ |_ \ V  V / (_) | |  |   < | (__ / /
- * |_____|  |_|_| |_|\___|\__| \_/\_/ \___/|_|  |_|\_(_)___/___|
- *                                _
- *              ___ ___ ___ _____|_|_ _ _____
- *             | . |  _| -_|     | | | |     |  LICENCE
- *             |  _|_| |___|_|_|_|_|___|_|_|_|
- *             |_|
- *
- *   PROGRAMOVÁNÍ  <>  DESIGN  <>  PRÁCE/PODNIKÁNÍ  <>  HW A SW
- *
- * Tento zdrojový kód je součástí výukových seriálů na
- * IT sociální síti WWW.ITNETWORK.CZ
- *
- * Kód spadá pod licenci prémiového obsahu a vznikl díky podpoře
- * našich členů. Je určen pouze pro osobní užití a nesmí být šířen.
- * Více informací na http://www.itnetwork.cz/licence
- */
-
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
@@ -33,32 +11,92 @@ import {
 import PersonIndex from "./persons/PersonIndex";
 import PersonDetail from "./persons/PersonDetail";
 import PersonForm from "./persons/PersonForm";
+import InvoiceIndex from "./invoices/InvoiceIndex";
+import InvoiceDetail from "./invoices/InvoiceDetail";
+import InvoiceForm from "./invoices/InvoiceForm";
+
+import StatisticIndex from "./statistics/StatisticIndex";
+import Home from "./home/Home";
+
+
+
+
 
 export function App() {
+
+  
+
   return (
     <Router>
-      <div className="container">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <ul className="navbar-nav mr-auto">
+      <div className="container bg-light">
+        <nav className="navbar navbar-light navbar-expand-sm justify-content-between">   
+          
+                   
+          <ul className="navbar-nav mr-auto navbar-text nav-tabs">
+          <li className="nav-item">
+              <Link to={"/home"} className="nav-link">
+                Home
+              </Link>
+            </li>
             <li className="nav-item">
               <Link to={"/persons"} className="nav-link">
                 Osoby
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to={"/invoices"} className="nav-link">
+                Faktury
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/statistics"} className="nav-link">
+                Statistiky
+              </Link>
+            </li>
           </ul>
+           
         </nav>
+        
+
 
         <Routes>
-          <Route index element={<Navigate to={"/persons"} />} />
-          <Route path="/persons">
-            <Route index element={<PersonIndex />} />
-            <Route path="show/:id" element={<PersonDetail />} />
-            <Route path="create" element={<PersonForm />} />
-            <Route path="edit/:id" element={<PersonForm />} />
-          </Route>
+          
+            <Route index element ={<Navigate to={"/home"} />} />
+            <Route path="/home/" element={<Home />} />
+            <Route path="/persons/">
+              <Route index element={<PersonIndex />} />
+              <Route path="show/:id" element={<PersonDetail />} />
+              <Route path="create" element={<PersonForm />} />
+              <Route path="edit/:id" element={<PersonForm />} />
+            </Route>
+            <Route path="/invoices/">
+              <Route index element={<InvoiceIndex />}/>
+              <Route path="create" element={<InvoiceForm/>}/>
+              <Route path="show/:id" element={<InvoiceDetail/>}/>
+              <Route path="edit/:id" element={<InvoiceForm />} />
+            </Route>
+            <Route path="/statistics/">
+              <Route index element={<StatisticIndex/>}/>
+            </Route>
+            
+
+        
         </Routes>
+
+        <br/>
+        <footer className= "fixed-bottom text-light bg-dark footer bg-body-tertiary text-center">
+          Vytvořil &copy;AdVy 2024
+        </footer>
+      
+        
       </div>
+      
+
     </Router>
+
+    
+
+    
   );
 }
 
