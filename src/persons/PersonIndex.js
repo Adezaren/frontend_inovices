@@ -20,7 +20,7 @@ const PersonIndex = () => {
     };
 
     useEffect(() => {
-        apiGet("/api/persons").then((data) => setPersons(data));
+       apiGet("/api/persons").then((data) => setPersons(data));
     }, []);
 
     return (

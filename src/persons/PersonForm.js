@@ -44,9 +44,13 @@ const PersonForm = () => {
 
         (id ? apiPut("/api/persons/" + id, person) : apiPost("/api/persons", person))
             .then((data) => {
+                console.log ('success', data)
                 setSent(true);
                 setSuccess(true);
-                navigate("/persons");
+                setTimeout(() => {
+                    navigate("/persons")
+                  }, 2000)
+                
             })
             .catch((error) => {
                 console.log(error.message);
@@ -63,15 +67,17 @@ const PersonForm = () => {
         <div>
             <h1>{id ? "Upravit" : "Vytvořit"} osobnost</h1>
             <hr/>
+
             {errorState ? (
                 <div className="alert alert-danger">{errorState}</div>
             ) : null}
-            {sent && (
+
+            {sent && success ? (
                 <FlashMessage
-                    theme={success ? "success" : ""}
-                    text={success ? "Uložení faktury proběhlo úspěšně." : ""}
-                />
-            )}
+                    theme={'success'}
+                    text={'Uložení osoby proběhlo úspěšně.'}
+            />
+             ): null}
 
             <form onSubmit={handleSubmit}>
                 <InputField
@@ -252,7 +258,7 @@ const PersonForm = () => {
                     checked={Country.SLOVAKIA === person.country}
                 />
 
-                <input type="submit" className="btn btn-primary" value="Uložit"/>
+                <input onClick={handleSubmit} type="submit" className="btn btn-success" value="Uložit"/>
             </form>
         </div>
     );

@@ -74,7 +74,10 @@ const InvoiceIndex = (props) => {
                             />
             <hr />
 
-            <InvoiceTable deleteInvoice={deleteInvoice} items={invoices} label="Počet nalezených faktur:" />
+            <InvoiceTable 
+                deleteInvoice={deleteInvoice} 
+                items={invoices} 
+                label="Počet nalezených faktur:" />
             
         </div>
     );

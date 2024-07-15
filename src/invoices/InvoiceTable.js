@@ -59,9 +59,10 @@ const InvoiceTable = ({label, items, deleteInvoice}) => {
                 ))}
                 </tbody>
             </table>
-            <Link to={"/invoices/create"} className="btn btn-success">
+            <Link to={"/invoices/create"} className="btn btn-success my-5">
                 Nová faktura
             </Link>
+            
         </div>
     );
 };

@@ -28,23 +28,30 @@ const InvoiceForm = () => {
     const [sentState, setSent] = useState(false);
     const [successState, setSuccess] = useState(false);
     const [errorState, setError] = useState(null);
-    const [personsListState, setPersonList] = useState([])
+    const [sellerListState, setSellerList] = useState([])
+    const [buyerListState, setBuyerList] = useState([])
+
 
     useEffect(() => {
         if (id) {
             apiGet("/api/invoices/" + id).then((data) => { setInvoice(data);
         });
     }
-    apiGet("/api/persons").then((data) => setPersonList(data)); },[id]);
+    apiGet("/api/persons").then((data) => setBuyerList(data));
+    apiGet("/api/persons").then((data) => setSellerList(data));
+    },[id]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         (id ? apiPut("/api/invoices/" + id, invoices) : apiPost("/api/invoices", invoices))
             .then((data) => {
+                console.log('success', data)
                 setSent(true);
                 setSuccess(true);
-                navigate("/invoices");
+                setTimeout(() => {
+                    navigate("/invoices")
+                  }, 2000)
             })
             .catch((error) => {
                 console.log(error.message);
@@ -64,12 +71,13 @@ const InvoiceForm = () => {
             {errorState ? (
                 <div className="alert alert-danger">{errorState}</div>
             ) : null}
-            {sent && (
+            {sent && success ? (
                 <FlashMessage
-                    theme={success ? "success" : ""}
-                    text={success ? "Uložení faktury proběhlo úspěšně." : ""}
-                />
-            )}
+                theme={"success"}
+                text={"Uložení faktury proběhlo úspěšně."}
+            />
+        ): null}
+            
             <form onSubmit={handleSubmit}>
                 <InputField
                     required={true}
@@ -85,9 +93,9 @@ const InvoiceForm = () => {
                 />
 
                 <InputSelect
-                    required={true}
+                    required={false}
                     name="seller"
-                    items={personsListState}
+                    items={sellerListState}
                     label="Prodávající"
                     prompt="Vyberte jméno"
                     value={invoices.seller._id}
@@ -96,9 +104,9 @@ const InvoiceForm = () => {
                 />
 
                 <InputSelect
-                    required={true}
+                    required={false}
                     name="buyer"
-                    items={personsListState}
+                    items={buyerListState}
                     label="Kupující"
                     prompt="Vyberte jméno"
                     value={invoices.buyer._id}
@@ -163,7 +171,7 @@ const InvoiceForm = () => {
                     type="number"
                     name="VAT"
                     min="3"
-                    label="DPH"
+                    label="DPH v %"
                     prompt="Zadejte DPH"
                     value={invoices.vat}
                     handleChange={(e) => {
@@ -185,7 +193,7 @@ const InvoiceForm = () => {
                 />
 
                 
-                <input type="submit" className="btn btn-primary" value="Uložit"/>
+                <input type="submit" className="btn btn-success" value="Uložit"/>
             </form>
         </div>
     );

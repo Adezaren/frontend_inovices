@@ -5,15 +5,34 @@ import {useParams} from "react-router-dom";
 
 import {apiGet} from "../utils/api";
 import Country from "./Country";
+import InvoiceTable from "../invoices/InvoiceTable";
+
 
 const PersonDetail = () => {
     const {id} = useParams();
     const [person, setPerson] = useState({});
+    const [invoicesSale, setInvoicesSale] = useState([]);
+    const [invoicesPurchase, setInvoicesPurchases] = useState([]);
+
+    const identificationNumber = person.identificationNumber;
+
+    
+  
 
     useEffect(() => {
-        //pokus
-        apiGet("/api/persons/" + id).then((data) => setPerson(data));
+        apiGet("/api/persons/" + id).then((data) => setPerson(data));        
+        
     }, [id]);
+
+    useEffect(() => {
+        apiGet("/api/identification/" + identificationNumber + "/sales").then((data) => setInvoicesSale(data));
+        apiGet("/api/identification/" + identificationNumber + "/purchases").then((data) => setInvoicesPurchases(data));
+
+    }, [identificationNumber]);
+    
+
+    
+    
     const country = Country.CZECHIA === person.country ? "Česká republika" : "Slovensko";
 
     return (
@@ -54,6 +73,27 @@ const PersonDetail = () => {
                     {person.note}
                 </p>
             </div>
+
+            <divy>
+                <p>
+                    <hr/>
+                </p>
+                <InvoiceTable
+                    items={invoicesSale}
+                    label = "Vystavené faktury:"
+                />    
+
+                <InvoiceTable
+                    items = {invoicesPurchase}
+                    label = "Přijaté faktury:"
+                />    
+            </divy>
+
+            
+
+            
+
+       
         </>
     );
 };
