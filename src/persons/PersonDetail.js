@@ -1,5 +1,3 @@
-
-
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 
@@ -15,8 +13,6 @@ const PersonDetail = () => {
     const [invoicesPurchase, setInvoicesPurchases] = useState([]);
 
     const identificationNumber = person.identificationNumber;
-
-    
   
 
     useEffect(() => {
@@ -29,9 +25,7 @@ const PersonDetail = () => {
         apiGet("/api/identification/" + identificationNumber + "/purchases").then((data) => setInvoicesPurchases(data));
 
     }, [identificationNumber]);
-    
-
-    
+       
     
     const country = Country.CZECHIA === person.country ? "Česká republika" : "Slovensko";
 
@@ -74,10 +68,11 @@ const PersonDetail = () => {
                 </p>
             </div>
 
-            <divy>
-                <p>
+            <div>
+                <div>
                     <hr/>
-                </p>
+                </div>
+                
                 <InvoiceTable
                     items={invoicesSale}
                     label = "Vystavené faktury:"
@@ -87,7 +82,7 @@ const PersonDetail = () => {
                     items = {invoicesPurchase}
                     label = "Přijaté faktury:"
                 />    
-            </divy>
+            </div>
 
             
 

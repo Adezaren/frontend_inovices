@@ -98,7 +98,7 @@ const InvoiceFilter = (props) => {
                             value="confirm"
                         >Filtruj faktury
                         </button>
-                      
+                     
                     </div>
                 </div>
                    
