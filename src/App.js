@@ -28,32 +28,32 @@ export function App() {
 
   return (
     <Router>
-      <div className="container bg-light">
-        <nav className="navbar navbar-light navbar-expand-sm justify-content-between">   
+      <div className="container">
+        <nav className="navbar-expand-sm justify-content-between">   
           
                    
-          <ul className="navbar-nav mr-auto navbar-text nav-tabs">
-          <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/persons"} className="nav-link">
-                Osoby
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/invoices"} className="nav-link">
-                Faktury
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/statistics"} className="nav-link">
-                Statistiky
-              </Link>
-            </li>
-          </ul>
+          <ul className="navbar-nav navbar-text">
+            <li className="active">
+                <Link to={"/home"} className="nav-link">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to={"/persons"} className="nav-link">
+                  Osoby
+                </Link>
+              </li>
+              <li>
+                <Link to={"/invoices"} className="nav-link">
+                  Faktury
+                </Link>
+              </li>
+              <li>
+                <Link to={"/statistics"} className="nav-link">
+                  Statistiky
+                </Link>
+              </li>
+            </ul>
            
         </nav>
         

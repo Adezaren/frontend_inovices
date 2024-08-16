@@ -13,8 +13,8 @@ const PersonIndex = () => {
         try {
             await apiDelete("/api/persons/" + id);
         } catch (error) {
-            console.log(error.message);
-            alert(error.message)
+            console.log("Potvzrní smazání");
+            
         }
         setPersons(persons.filter((item) => item._id !== id));
     };

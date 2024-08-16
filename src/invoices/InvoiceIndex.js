@@ -25,9 +25,8 @@ const InvoiceIndex = (props) => {
         try {
             await apiDelete("/api/invoices/" + id);
         } catch (error) {
-            console.log(error.message);
-            alert(error.message)
-        }
+            console.log("Potvrzení smazání");
+            }
         setInvoices(invoices.filter((item) => item._id !== id));
     };
 

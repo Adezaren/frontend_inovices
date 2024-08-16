@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import InputField from "../components/InputField";
 import InputSelect from "../components/InputSelect";
 
@@ -12,7 +12,7 @@ const InvoiceFilter = (props) => {
         props.handleSubmit(e);
     };
 
-    const filter = props.filter;
+      const filter = props.filter;
 
 
     return (
@@ -62,7 +62,7 @@ const InvoiceFilter = (props) => {
                         name="minPrice"
                         label="Cena od"
                         prompt="Neuvedeno"
-                        value={filter.minPrice ? filter.minPrice : ""}
+                        value={filter.minPrice ? filter.minPrice : undefined}
                         handleChange={handleChange}
                     />                      
                 </div>  
@@ -74,7 +74,7 @@ const InvoiceFilter = (props) => {
                             name="maxPrice"
                             label="Cena do"
                             prompt="Neuvedeno"
-                            value={filter.maxPrice ? filter.maxPrice : ""}
+                            value={filter.maxPrice ? filter.maxPrice : undefined}
                             handleChange={handleChange}
                         />       
                 </div> 
@@ -86,7 +86,7 @@ const InvoiceFilter = (props) => {
                         name="limit"
                         label="Počet zobrazených faktur"
                         prompt="Neuvedeno"
-                        value={filter.limit ? filter.limit : ""}
+                        value={filter.limit ? filter.limit : undefined}
                         handleChange={handleChange}
                     /> 
                 </div> 
@@ -97,12 +97,15 @@ const InvoiceFilter = (props) => {
                             className="btn btn-dark float-right mt-3"
                             value="confirm"
                         >Filtruj faktury
-                        </button>
-                     
+                        </button>     
+
                     </div>
+
+                    
                 </div>
                    
             </div>
+            
            
         </form>
 

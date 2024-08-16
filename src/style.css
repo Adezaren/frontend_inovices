@@ -1,0 +1,36 @@
+body {
+    background: lightgrey;
+    margin-top: 10px;
+}
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+    border-radius: 20px 20px 0px 0px;
+}
+
+li {
+  float:inherit;
+  display: block;
+  color:white;
+  text-align: center;
+  font-weight: bold;
+  margin-left: 15px;
+  padding: 5px 10px;
+  text-decoration: none;
+   
+}
+
+li a:hover {
+    text-decoration-line: overline;
+}
+
+li a:active {
+    text-decoration-line: overline;
+}
+
+

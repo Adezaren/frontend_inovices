@@ -29,7 +29,7 @@ return (
                 item = {statistics}
         />
         <hr/>
-                <PersonStatistic
+        <PersonStatistic
                 label = "Statistika osob"
                 items = {data}
         /> 
